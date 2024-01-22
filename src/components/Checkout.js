@@ -18,7 +18,7 @@ export default function Checkout() {
         const uniqueIds = [... new Set(selectedProducts)];
         const id = uniqueIds.join(",");
         console.log(id);
-        const response = await fetch(`http://localhost:8000/api/products/getAllProductsById/${id}`,{method:"GET"});
+        const response = await fetch(`https://abhishek.nssiitd.in/shop/api/products/getAllProductsById/${id}`,{method:"GET"});
         if(response.ok){
             const res_data = await response.json();
             setProducstInfos(res_data);}
