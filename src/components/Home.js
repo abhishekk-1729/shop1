@@ -12,7 +12,7 @@ export default function Home() {
   
     const getAllProducts = async()=> {
       try {
-          const response = await fetch("http://localhost:8000/api/products/getAllProducts",{ 
+          const response = await fetch("https://abhishek.nssiitd.in/shop/api/products/getAllProducts",{ 
           method:"GET"
         });
   
