@@ -6,7 +6,8 @@ export const AuthContext = createContext();
 export const AuthProvider = ({children}) => {
 
     const [selectedProducts, setSelectedProducts] = useState([]);
-    return <AuthContext.Provider value={{selectedProducts,setSelectedProducts}}>
+    const [total,setTotal] = useState(0);
+    return <AuthContext.Provider value={{selectedProducts,setSelectedProducts,total,setTotal}}>
         {children}
     </AuthContext.Provider>
 }

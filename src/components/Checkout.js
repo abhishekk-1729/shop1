@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import Layout from './Layout'
 import { useAuth } from '../store/auth'
+import { NavLink } from 'react-router-dom';
+
 
 
 export default function Checkout() {
 
-  const {selectedProducts,setSelectedProducts} = useAuth();
+  const {selectedProducts,setSelectedProducts,setTotal} = useAuth();
   const [productInfos,setProducstInfos] = useState([]);
   const [address,setAddress] = useState('');
   const [city,setCity] = useState('');
@@ -22,6 +24,7 @@ export default function Checkout() {
         if(response.ok){
             const res_data = await response.json();
             setProducstInfos(res_data);}
+            
         }
     catch (error) {
         
@@ -54,30 +57,13 @@ export default function Checkout() {
     }
   }
   const total = subtotal + deliveryPrice;
-  
-  
-  const handleSubmit = async(data) => {
+  console.log(total);
 
-    
-    try {
-        const response = await fetch("http://localhost:8000/api/checkout/final",{
-            method:"POST",
-            headers:{
-                "Content-Type":"application/json"
-            },
-            body: JSON.stringify(data)
-        })
+  useEffect(()=>{
+setTotal(total);
 
-        if(response.ok){
-        const res_data = await response.json;
-        console.log(res_data);
-    }
+  },[total])
 
-    } catch (error) {
-        console.log(error);
-    }
-  }
- 
 
   return (
     <Layout>
@@ -110,7 +96,7 @@ export default function Checkout() {
       )})}
 
       
-       {productInfos.length!=0&&<form onSubmit={handleSubmit(selectedProducts.join(','))}>
+       {productInfos.length!=0&&<div>
         <div className="mt-8">
           <input name="address" value={address} onChange={e => setAddress(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="Street address, number"/>
           <input name="city" value={city} onChange={e => setCity(e.target.value)} className="bg-gray-100 w-full rounded-lg px-4 py-2 mb-2" type="text" placeholder="City and postal code"/>
@@ -132,8 +118,10 @@ export default function Checkout() {
           </div>
         </div>
         <input type="hidden" name="products" value={selectedProducts.join(',')}/>
-        <button type="submit" className="bg-emerald-500 px-5 py-2 rounded-xl font-bold text-white w-full my-4 shadow-emerald-300 shadow-lg">Pay ${total}</button>
-      </form>
+      {/* <a href="/pay"> */}
+        <button type="submit" className="bg-emerald-500 px-5 py-2 rounded-xl font-bold text-white w-full my-4 shadow-emerald-300 shadow-lg">Pay ${total} </button>
+{/* </a> */}
+      </div>
       }
     </Layout>
   )
