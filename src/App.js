@@ -13,13 +13,15 @@ function App() {
   return (
     <>
     <div className=" flex">
-    
+      <div className='my-4 mx-4'>
+    <img src="/products/logo.png" alt="logo" width ="100" height="100"/>
+    </div>
     <h1 className=' my-4 w-full flex justify-center font-bold text-4xl grow'>
       Shop Here
     </h1>
     <a href="https://portfolio1-kappa-puce.vercel.app/learnings/quickmart" target="_blank">
     <h2 className='my-3 mx-2 text-2xl'>
-      Learnings
+      {/* Learnings */}
     </h2>
     </a>
     </div>
